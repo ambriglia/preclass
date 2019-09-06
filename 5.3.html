@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function firstNonRepeatChar(str) {
+            for (var i = 0; i < str.length; i++) {
+                var char = str[i];
+                var count = 0;
+
+                for (var j = 0; j < str.length; j++) {
+                    if (str[j] === char) {
+                        count++;
+                    }
+                }
+
+                if (count === 1) {
+                    return char;
+                }
+            }
+        }
+
+        function firstNonRepeatCharOther(str) {
+            var charCount = {};
+            for (var i = 0; i < str.length; i++) {
+                var char = str[i];
+                if (charCount[char]) {
+                    charCount[char]++;
+                }
+                else {
+                    charCount[char] = 1;
+                }
+            }
+            for (var j in charCount) {
+                if (charCount[j] === 1) {
+                    return j;
+                }
+            }
+        }
+
+        function firstNonRepeatCharMap(str) {
+            const map = new Map();
+            const strArray = str.split('');
+            strArray.forEach((char) => {
+                if(map.has(char)) {
+                    let currentValue = map.get(char);
+                    map.set(char, ++currentValue);
+                } else {
+                    map.set(char, 1);
+                }
+            });
+
+            for(const [key, value] of map) {
+                if(value === 1) {
+                    return key;
+                }
+            }
+        }
+
+        console.log(firstNonRepeatChar('the quick brown fox jumps over the calm kitten quietly'));
+        console.log(firstNonRepeatChar('this hat is the greatest!'));
+        console.log(firstNonRepeatChar('what a wonderful day it has been!'));
+
+        console.log('------------------')
+
+        console.log(firstNonRepeatCharOther('the quick brown fox jumps over the calm kitten quietly'));
+        console.log(firstNonRepeatCharOther('this hat is the greatest!'));
+        console.log(firstNonRepeatCharOther('what a wonderful day it has been!'));
+
+        console.log('------------------')
+
+        console.log(firstNonRepeatCharMap('the quick brown fox jumps over the calm kitten quietly'));
+        console.log(firstNonRepeatCharMap('this hat is the greatest!'));
+        console.log(firstNonRepeatCharMap('what a wonderful day it has been!'));
+    </script>
+</body>
+
+</html>
